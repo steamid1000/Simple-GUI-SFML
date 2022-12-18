@@ -1,7 +1,5 @@
 #pragma once
-#pragma once
-#include <component.hpp>
-#include <SFML/Graphics.hpp>
+#include "component.hpp"
 #include <functional>
 #include <SFML/Audio.hpp>
 
@@ -18,7 +16,7 @@ public:
 
     void align(short);
     void hover();
-    void onClick();
+    void onClick(std::function<void()> statements);
     bool cursorOverButton();
     void render();
     bool Clicked();

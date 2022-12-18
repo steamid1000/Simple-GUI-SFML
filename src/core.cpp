@@ -1,8 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <GUI.hpp>
-#include "Buttons.hpp"
-#include "Lables.hpp"
 
 
 /*// & I think the Onsize change and The auto size on text are fighting with each other as the characterSize is not changing */
@@ -12,7 +10,7 @@ sf::Font font;
 int main()
 {
     //I want this file to be as clean as possible maybe after a scene manager this will be accomplished
-    SetFont(font,"times.ttf");
+    SetFont(font,"times.ttf"); //& this function should be called only once
     sf::RenderWindow window(sf::VideoMode(width,height),"GUI Testing");
     // window.setFramerateLimit(60);
     
@@ -24,6 +22,8 @@ int main()
     Lable greet(&window);   
     Button help("help",&window);
     Button test("test",&window);
+    
+    auto lam = [&](){std::cout<<"hello wordl";}; // & ok now the lamda functions are waorking and now we just have to make it work some how in the scene class
     
     play.SetInnerText("Play",10);
     greet.SetInnerText("PONG - THE GAME");
@@ -50,7 +50,6 @@ int main()
     quit.SetPosition(sf::Vector2f(quit.center.x - quit.getBounds().width/2,settings.GetPosition().y + play.GetSize().y + 10));
 
     greet.SetPosition(sf::Vector2f(greet.center.x,play.GetPosition().y - 60));
-    
     while (window.isOpen())
     {
         while (window.pollEvent(events))
@@ -63,14 +62,12 @@ int main()
             
 
             window.clear(sf::Color(110,110,90));
-            play.render();
-            quit.render();
-            settings.render();
             greet.render();
-            help.render();
-            test.render();
+            play.render();
+            settings.render();
+            quit.render();
             window.display();
-            
+
         }
         
     }

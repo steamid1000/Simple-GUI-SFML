@@ -1,5 +1,5 @@
 #include "Buttons.hpp"
-#include "menuScene.hpp"
+
 
 Button::Button(std::string idString, sf::RenderWindow *windowPointer) : component(windowPointer, true)
 {
@@ -66,10 +66,10 @@ bool Button::cursorOverButton()
     return false;
 }
 
-void Button::onClick()
+void Button::onClick(std::function<void()> statements) // for now let me just send the lamda code right here later it will be sent to the scene class
 {
     Play();
-    ButtonClicked(getID());
+    statements();
 }
 
 void Button::hover() //& craped the idea for changing the text colour on hover due to blurred text
@@ -91,7 +91,6 @@ bool Button::Clicked()
 {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) and cursorOverButton())
     {
-        onClick();
         return true;
     }
 

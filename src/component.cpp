@@ -90,7 +90,7 @@ void component::SetPosition(sf::Vector2f position)
 void component::SetInnerText(std::string innertext, short characterSize)
 { // call the set font function before this
     text->setString(innertext);
-    if (characterSize != 10) //& experimental
+    if (characterSize != 30) 
     {
         text->setCharacterSize(characterSize);
     }

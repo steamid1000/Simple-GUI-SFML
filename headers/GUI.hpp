@@ -1,4 +1,5 @@
-#pragma once
+#include "Buttons.hpp"
+#include "Lables.hpp"
 
 //^ Useful functions
 

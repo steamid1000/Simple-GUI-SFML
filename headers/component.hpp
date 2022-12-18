@@ -34,7 +34,7 @@ public:
     virtual void SetSize(sf::Vector2f); // this should be either a sf::vector or short for button and lable respectively
     void SetPosition(sf::Vector2f);
     void SetColor(Vector4i);
-    virtual void SetInnerText(std::string,short= 10);
+    virtual void SetInnerText(std::string,short= 30);
     void OnSizeChange(bool=false);
     void ButtonSizeAccordingToText();
     sf::FloatRect getBounds(short = 0);

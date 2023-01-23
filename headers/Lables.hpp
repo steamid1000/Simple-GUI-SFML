@@ -1,5 +1,5 @@
 #include "component.hpp"
-
+namespace GUI{
 class Lable : public component
 {
 private:
@@ -10,3 +10,4 @@ public:
     void SetInnerText(std::string);
     void SetSize(short);    
 };
+}

@@ -1,2 +1,2 @@
 default:
-	g++ ../src/*.cpp -o GUI_Testing.exe -O2 -Wall -Wno-missing-braces -I../headers/ -IC:/SFML-2.5.1/include/ -LC:/SFML-2.5.1/lib/ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio 
+	g++ ../src/*.cpp -o GUI_Testing.exe -O2 -Wall -Wno-missing-braces -I../headers -I../Scenes -IC:/SFML-2.5.1/include/ -LC:/SFML-2.5.1/lib/ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio

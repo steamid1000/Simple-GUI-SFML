@@ -10,13 +10,14 @@ component::component(sf::RenderWindow *windowPointer, bool isvisible = true)
 
     body = new sf::RectangleShape;
     body->setSize(sf::Vector2f(10, 10));
-    body->setFillColor(sf::Color::Green);
+    body->setFillColor(sf::Color(60,60,60));
     body->setPosition(sf::Vector2f(10, 10));
     body->setOutlineThickness(1.2f);
 
     // text object settingss
     text = new sf::Text;
     text->setFont(font);
+    text->setFillColor(sf::Color::White);
 }
 
 component::~component()

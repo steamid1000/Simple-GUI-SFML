@@ -1,6 +1,5 @@
 #include "Buttons.hpp"
-
-
+namespace GUI{
 Button::Button(std::string idString, sf::RenderWindow *windowPointer) : component(windowPointer, true)
 {
     ButtonWindowCopy = windowPointer;
@@ -66,13 +65,32 @@ bool Button::cursorOverButton()
     return false;
 }
 
-void Button::onClick(std::function<void()> statements) // for now let me just send the lamda code right here later it will be sent to the scene class
+void Button::onClick() // for now let me just send the lamda code right here later it will be sent to the scene class
 {
     Play();
-    statements();
+    try
+    {
+        if (action==nullptr)
+        {
+            throw "Action Not Found";
+        }
+        else
+        {
+            action();
+        }
+        
+    }
+    catch(const char * ex)
+    {
+        // printf("%s : ",ex);
+        std::cout<<ex<<" ,  ButtonID: "<<getID()<<'\n';
+    }
 }
-
-void Button::hover() //& craped the idea for changing the text colour on hover due to blurred text
+void Button::setAction(std::function<void()> statements)
+{ //^ Sets the Action to be performed after clicking the button
+    action = statements;
+}
+void Button::hover()
 {
     sf::Vector3i originalColor = GetColor();
     if (cursorOverButton() == true)
@@ -83,8 +101,6 @@ void Button::hover() //& craped the idea for changing the text colour on hover d
     {
         SetColor(Vector4i(originalColor.x, originalColor.y, originalColor.z, 255));
     }
-    
-
 }
 
 bool Button::Clicked()
@@ -108,7 +124,6 @@ void Button::setSound(std::string path)
     audio->setBuffer(*source);
 }
 
-
 void Button::Play()
 {
     audio->play();
@@ -117,5 +132,11 @@ void Button::render()
 {
     component::render(); // calling the base class render function and then the button class functions are called..👍🏼
     hover();
-    Clicked();
+
+    if (Clicked())
+    {
+
+        onClick();
+    }
+}
 }

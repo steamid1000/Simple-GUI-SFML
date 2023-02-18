@@ -37,7 +37,7 @@ void Button::align(short side) // Align the button to the sides of the window or
         SetPosition(sf::Vector2f(GetSize().x, 10));
         break;
     case 2:
-        SetPosition(sf::Vector2f(width - GetSize().x * 2.5f, 10));
+        SetPosition(sf::Vector2f(width - GetSize().x - 10, 10));
         break;
     case 3:
         SetPosition(sf::Vector2f(10, height - GetSize().y * 1.5f));

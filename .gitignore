@@ -1,3 +1,8 @@
 *.exe
 .vscode/c_cpp_properties.json
 *.json
+build/res/collision.wav
+build/res/heart.png
+build/res/middle-Line.png
+build/res/middle-Line.png~
+build/res/paddel_hit.wav

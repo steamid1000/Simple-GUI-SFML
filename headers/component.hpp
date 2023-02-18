@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 // using external global variables
-extern const short width, height;
+extern short width, height;
 extern sf::Font font;
 
 struct Vector4i

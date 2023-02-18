@@ -1,8 +1,9 @@
 #pragma once
 #include "Scene.hpp"
-#include "GameScene.hpp"
+// #include "GameSceneTest.hpp"
 
 extern short sceneIndex;
+extern sf::Font font;
 
 class MenuScene : public Scene
 {
@@ -15,6 +16,8 @@ private:
     GUI::Button* help;
     GUI::Button* test;
 
+    //^ temp
+    GUI::Button* check; 
 public:
     MenuScene(sf::RenderWindow&);
     
@@ -25,6 +28,7 @@ public:
 
 MenuScene::MenuScene(sf::RenderWindow& window)
 {
+    
     internalwindow = &window;
     printf("The internalwindow has been captured\n");
 
@@ -45,6 +49,12 @@ void MenuScene::setup()
     greet = new GUI::Lable(internalwindow);
     help = new GUI::Button("help", internalwindow);
     test = new GUI::Button("test", internalwindow);
+
+    //^temp
+    check = new GUI::Button("check",internalwindow);
+    check->SetInnerText("Checked",40);
+    check->align(2);
+    check->SetColor(Vector4i(120,90,136,255));
 
     auto lam = [&]()
     {sceneIndex++; }; 
@@ -90,6 +100,9 @@ void MenuScene::render()
             help->render();
             quit->render();
             settings->render();
+
+            //^temp
+            check->render();
         // internalwindow->display();
          
 }

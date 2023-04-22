@@ -36,7 +36,7 @@ void setSound(sf::SoundBuffer &buffer, sf::Sound &src, const std::string filePat
 
 
 
-#ifndef SetFont
+#ifndef SetFont // Why in the world are there two function to set font, got to remove it 
 void SetFont(sf::Font &font,std::string path)
 {
     if (!font.loadFromFile(path))

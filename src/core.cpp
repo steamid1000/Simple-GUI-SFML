@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <GUI.hpp>
 #include "MenuScene.hpp"
-#include "GameScene.hpp"
+#include "TestingScene.hpp"
 
 /*// & I think the Onsize change and The auto size on text are fighting with each other as the characterSize is not changing */
 short width = 600, height = 400;
@@ -13,15 +13,15 @@ int main()
     // I want this file to be as clean as possible maybe after a scene manager this will be accomplished
     SetFont(font, "res/times.ttf"); //& this function should be called only once
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(width, height), "GUI Testing");
-    // window->setFramerateLimit(60);
+    window->setFramerateLimit(60);
 
-    
+    // Creating an array of Scenes by refering them as there base class 'Scene'
     MenuScene menu(*window);
-    GameScene game(*window);
+    TestScene test(*window);
 
     Scene *Scenes[2];
     Scenes[0] = &menu;
-    Scenes[1] = &game;
+    Scenes[1] = &test;
 
     while (window->isOpen())
     {
@@ -34,30 +34,17 @@ int main()
                 return EXIT_SUCCESS;
             }
             
-            //& resize code
+            //& Prevent resize code
             if (events.type == sf::Event::Resized)
-            {
-                width = window->getSize().x;
-                height = window->getSize().y;
-
-                std::string words[]{"what","game","good"};
+            {                
                 window->setSize(sf::Vector2u(width,height));
-                logData("the window has been resized");
-                logData("Width: ");
-                logData(width);
-                logData("Height: ");
-                logData(height);
-
-                //Temp
-                logData(words);
-
             }
             
 
-            window->clear(sf::Color(110, 110, 90));
-            Scenes[sceneIndex]->render();
-            window->display();
             
+            Scenes[sceneIndex]->render();
+            
+            // & Each Scene should have its own clear screen and display calls
         }
 
     }

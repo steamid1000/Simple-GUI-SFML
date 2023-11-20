@@ -1,10 +1,11 @@
 #include "component.hpp"
 
-component::component(sf::RenderWindow *windowPointer, bool isvisible = true)
+extern sf::RenderWindow* window;
+
+component::component(bool isvisible = true)
 {
     IsVisible = isvisible; // this will tell if the outer rectangle will be valid or not
     SizeGiven = false;     // by default this will be false until the user calls the SetSize function
-    internalWindow = windowPointer;
     center = {width / 2, height / 2};
     // setting the default size to be 1
 
@@ -136,7 +137,7 @@ void component::render()
 
     if (IsVisible)
     {
-        internalWindow->draw(*body);
+        window->draw(*body);
     }
-    internalWindow->draw(*text);
+    window->draw(*text);
 }

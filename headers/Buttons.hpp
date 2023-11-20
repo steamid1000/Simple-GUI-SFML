@@ -14,7 +14,7 @@ private:
     sf::Sound* audio;
     std::function<void()> action;
 public:
-    Button(std::string id,sf::RenderWindow* window);
+    Button(std::string id);
     ~Button();
 
     void align(short);

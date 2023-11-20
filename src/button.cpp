@@ -1,8 +1,9 @@
 #include "Buttons.hpp"
+
+extern sf::RenderWindow *window;
 namespace GUI{
-Button::Button(std::string idString, sf::RenderWindow *windowPointer) : component(windowPointer, true)
+Button::Button(std::string idString) : component(true)
 {
-    ButtonWindowCopy = windowPointer;
     id = idString;
     source = new sf::SoundBuffer;
     audio = new sf::Sound;
@@ -12,7 +13,6 @@ Button::Button(std::string idString, sf::RenderWindow *windowPointer) : componen
 
 Button::~Button()
 {
-    delete ButtonWindowCopy;
     delete source;
     delete audio;
 }
@@ -26,6 +26,9 @@ void Button::align(short side) // Align the button to the sides of the window or
       2 - right top corner of the window
       3 - left bottom corner of the window
       4 - right bottom corner of the window
+
+
+      Note:- Needs to be called after the setting of the inner-text, this can be made as an implicit call as well
     */
 
     switch (side)
@@ -55,7 +58,7 @@ void Button::align(short side) // Align the button to the sides of the window or
 
 bool Button::cursorOverButton()
 {
-    sf::Vector2f mousePosition(sf::Mouse::getPosition(*ButtonWindowCopy).x, sf::Mouse::getPosition(*ButtonWindowCopy).y);
+    sf::Vector2f mousePosition(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
     sf::FloatRect buttonArea = getBounds();
     if (buttonArea.contains(mousePosition))
     {
@@ -113,7 +116,7 @@ bool Button::Clicked()
     return false;
 }
 
-std::string Button::getID()
+std::string Button::getID() // return the button id
 {
     return id;
 }

@@ -4,11 +4,11 @@
 
 extern short sceneIndex;
 extern sf::Font font;
+extern sf::RenderWindow *window;
 
 class MenuScene : public Scene
 {
 private:
-    sf::RenderWindow *internalwindow;
     GUI::Button *play;
     GUI::Button *quit;
     GUI::Button *settings;
@@ -17,25 +17,21 @@ private:
     GUI::Button *test;
 
 public:
-    MenuScene(sf::RenderWindow &);
+    MenuScene();
 
     ~MenuScene();
     void setup();
     void render();
 };
 
-MenuScene::MenuScene(sf::RenderWindow &window)
+MenuScene::MenuScene()
 {
-
-    internalwindow = &window;
-    printf("The internalwindow has been captured\n");
-
     setup();
 }
 
 MenuScene::~MenuScene()
 {
-    delete internalwindow;
+    // delete internalwindow;
 }
 
 void MenuScene::setup()
@@ -46,14 +42,14 @@ void MenuScene::setup()
     };
 
     auto quitaction = [&]()
-    { internalwindow->close(); };
+    { window->close(); };
     
-    play = new GUI::Button("play", internalwindow);
-    quit = new GUI::Button("quit", internalwindow);
-    settings = new GUI::Button("Authors", internalwindow);
-    greet = new GUI::Lable(internalwindow);
-    help = new GUI::Button("help", internalwindow);
-    test = new GUI::Button("test", internalwindow);
+    play = new GUI::Button("play");
+    quit = new GUI::Button("quit");
+    settings = new GUI::Button("Authors");
+    greet = new GUI::Lable();
+    help = new GUI::Button("help");
+    test = new GUI::Button("test");
 
 
 
@@ -92,12 +88,12 @@ void MenuScene::setup()
 
 void MenuScene::render()
 {
-    internalwindow->clear(sf::Color(110, 110, 90));
+    window->clear(sf::Color(110, 110, 90));
     play->render();
     greet->render();
     test->render();
     help->render();
     quit->render();
     settings->render();
-    internalwindow->display();
+    window->display();
 }

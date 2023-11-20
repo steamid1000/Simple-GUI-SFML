@@ -3,6 +3,10 @@
 #include "MenuScene.hpp"
 #include "TestingScene.hpp"
 
+// Should we make the window object universal so that we dont have to make copies of it every time we create a new object
+// Lets try this
+sf::RenderWindow* window;
+
 /*// & I think the Onsize change and The auto size on text are fighting with each other as the characterSize is not changing */
 short width = 600, height = 400;
 sf::Font font;
@@ -12,15 +16,15 @@ int main()
     srand(time(0)); //^ initializing for the random variables
     // I want this file to be as clean as possible maybe after a scene manager this will be accomplished
     SetFont(font, "res/times.ttf"); //& this function should be called only once
-    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(width, height), "GUI Testing");
+    window = new sf::RenderWindow(sf::VideoMode(width, height), "GUI Testing");
     window->setFramerateLimit(60);
 
-    // Creating an array of Scenes by refering them as there base class 'Scene'
-    MenuScene menu(*window);
-    TestScene test(*window);
+    // Creating an array of Scenes by refering them as their base class 'Scene'
+    MenuScene menu;
+    TestScene test;
 
     Scene *Scenes[2];
-    Scenes[0] = &menu;
+    Scenes[0] = &menu; 
     Scenes[1] = &test;
 
     while (window->isOpen())
@@ -40,10 +44,7 @@ int main()
                 window->setSize(sf::Vector2u(width,height));
             }
             
-
-            
-            Scenes[sceneIndex]->render();
-            
+            Scenes[sceneIndex]->render();           
             // & Each Scene should have its own clear screen and display calls
         }
 

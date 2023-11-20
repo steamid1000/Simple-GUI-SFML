@@ -1,10 +1,7 @@
 #include "Lables.hpp"
 
 namespace GUI{
-Lable::Lable(sf::RenderWindow* windowPointer) : component(windowPointer,false)
-{
-    LableWindowCopy = windowPointer;
-}
+Lable::Lable() : component(false){}
 
 Lable::~Lable(){}
 

@@ -7,8 +7,8 @@ extern sf::Font font;
 
 struct Vector4i
 {
-    int a, b, c, d;
-    Vector4i(int ab, int bc, int cd, int de = 255)
+    short a, b, c, d;
+    Vector4i(short ab, short bc, short cd, short de = 255)
     {
         a = ab;
         b = bc;
@@ -24,11 +24,10 @@ private:
     sf::Text *text;
     bool IsVisible;
     bool SizeGiven; // If the size is fixed by the user
-    sf::RenderWindow *internalWindow = nullptr;
 
 public:
     sf::Vector2i center;
-    component(sf::RenderWindow *windowPointer, bool);
+    component(bool);
     ~component();
 
     virtual void SetSize(sf::Vector2f); // this should be either a sf::vector or short for button and lable respectively

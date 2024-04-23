@@ -4,6 +4,7 @@
 // using external global variables
 extern short width, height;
 extern sf::Font font;
+extern sf::RenderWindow* window;
 
 struct Vector4i
 {
@@ -21,8 +22,7 @@ class component
 {
 private:
     //Move the below to there respective classes
-    sf::RectangleShape *body;
-    sf::Text *text;
+    
     bool IsVisible;
 
     // The below option is still usefull here, lets see
@@ -31,25 +31,18 @@ private:
 
 public:
     sf::Vector2i center; // This is used to store the center of the window based on the window size
+    component(); // empty constructor
     component(bool);
     ~component();
 
-    short getId(){return id;}
 
-    void SetPosition(sf::Vector2f);
-    sf::FloatRect getBounds(short = 0);
-    sf::Vector2f GetPosition();
-    sf::Vector2f GetSize();
-
-    virtual void SetSize(sf::Vector2f); // this should be either a sf::vector or short for button and lable respectively
-    virtual void render(); // maybe move this function to the gui file, should each component have render funvtion
-
-    //Move this function to the respective classes, some function will be repeated but the code will be much cleaner
-    void ChangeTextColor(Vector4i);
-    virtual sf::Vector3i GetColor();
+    virtual void SetPosition(sf::Vector2f)=0;
+    virtual sf::FloatRect getBounds()=0;
+    virtual sf::Vector2f GetPosition() = 0;
     
-    void ButtonSizeAccordingToText();
-    void OnSizeChange(bool=false);
-    virtual void SetInnerText(std::string,short= 30);
-    void SetColor(Vector4i);
+
+    virtual void render()=0; // maybe move this function to the gui file, should each component have render funvtion
+
+    virtual sf::Vector3i GetColor() = 0;    
+    virtual void SetColor(Vector4i)=0;
 };

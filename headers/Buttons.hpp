@@ -9,6 +9,8 @@ class Button : public component
 private:
     std::string id;
     sf::RenderWindow* ButtonWindowCopy;
+    sf::Text* text;
+    sf::RectangleShape *body;
     std::function<void()> action;
 public:
     Button(std::string id);
@@ -22,6 +24,16 @@ public:
     void render();
     bool Clicked();
     void ButtonSizeAccordingToText();
+    void SetInnerText(std::string,short= 30);
+    sf::Vector2f GetSize();
+    sf::Vector2f GetPosition();
+    sf::Vector3i GetColor();
+    void ChangeTextColor(Vector4i rgb);
+    void SetColor(Vector4i rgb);
+    void SetPosition(sf::Vector2f position);
+    void OnSizeChange(bool calledFromTextSize);
+    void SetSize(sf::Vector2f size);
+    sf::FloatRect getBounds();
     std::string getID();
 
 };

@@ -7,15 +7,15 @@ component::component(bool isvisible = true)
     IsVisible = isvisible; // this will tell if the outer rectangle will be valid or not
     SizeGiven = false;     // by default this will be false until the user calls the SetSize function
     center = {width / 2, height / 2};
-    // setting the default size to be 1
 
+    // setting the default size to be 1
     body = new sf::RectangleShape;
     body->setSize(sf::Vector2f(10, 10));
     body->setFillColor(sf::Color(60,60,60));
     body->setPosition(sf::Vector2f(10, 10));
     body->setOutlineThickness(1.2f);
 
-    // text object settingss
+    // text object settings
     text = new sf::Text;
     text->setFont(font);
     text->setFillColor(sf::Color::White);
@@ -28,7 +28,8 @@ component::~component()
 }
 
 sf::FloatRect component::getBounds(short index)
-{ // 0 means the bounds of the button and 0 means the bound of the text - this is for the button objects
+{ 
+    // 0 means the bounds of the button and 0 means the bound of the text - this is for the button objects
     if (IsVisible)
     {
         if (index == 0)
@@ -43,6 +44,7 @@ sf::FloatRect component::getBounds(short index)
 
     return text->getGlobalBounds();
 }
+
 void component::OnSizeChange(bool calledFromTextSize) // this function when setsSize function is called
 {
     if (!calledFromTextSize)
@@ -75,6 +77,7 @@ void component::SetSize(sf::Vector2f size)
         text->setCharacterSize(size.x);
     }
 }
+
 void component::SetPosition(sf::Vector2f position)
 {
 
@@ -90,7 +93,8 @@ void component::SetPosition(sf::Vector2f position)
 }
 
 void component::SetInnerText(std::string innertext, short characterSize)
-{ // call the set font function before this
+{   
+    // call the set font function before this
     text->setString(innertext);
     if (characterSize != 30) 
     {
@@ -134,7 +138,6 @@ sf::Vector2f component::GetSize()
 
 void component::render()
 {
-
     if (IsVisible)
     {
         window->draw(*body);

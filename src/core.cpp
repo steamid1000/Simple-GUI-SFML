@@ -11,7 +11,8 @@ sf::RenderWindow* window;
 short width = 600, height = 400;
 sf::Font font;
 short sceneIndex = 0;
-int main()
+
+int main() 
 {
     srand(time(0)); //^ initializing for the random variables
     // I want this file to be as clean as possible maybe after a scene manager this will be accomplished

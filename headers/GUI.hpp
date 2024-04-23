@@ -18,20 +18,10 @@ void setText(sf::Font &fontObject, sf::Text &textObject, std::string filepath, s
         logData("Font file for text was not found\n");
         return;
     }
+    
     textObject.setFont(fontObject);
     textObject.setCharacterSize(characterSize);
     textObject.setString(data);
-}
-
-//Sets the sound buffer to sound object
-void setSound(sf::SoundBuffer &buffer, sf::Sound &src, const std::string filePath)
-{
-
-    if (!buffer.loadFromFile(filePath))
-    {
-        logData("file cannot be loaded\n");
-    }
-    src.setBuffer(buffer);
 }
 
 

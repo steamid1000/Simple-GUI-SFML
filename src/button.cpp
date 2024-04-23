@@ -5,21 +5,12 @@ namespace GUI{
 Button::Button(std::string idString) : component(true)
 {
     id = idString;
-    source = new sf::SoundBuffer;
-    audio = new sf::Sound;
-
-    setSound("res/click.wav");
 }
 
-Button::~Button()
-{
-    delete source;
-    delete audio;
-}
 
 void Button::align(short side) // Align the button to the sides of the window or the center of the window
 {
-    // ! call this function only after deciding the size of the button. !
+    // ! call this function only after deciding the size of the button and the text of the button. !
     /*
       0 -  Center of the screen
       1 - left Top corner of the window
@@ -70,7 +61,6 @@ bool Button::cursorOverButton()
 
 void Button::onClick() // for now let me just send the lamda code right here later it will be sent to the scene class
 {
-    Play();
     try
     {
         if (action==nullptr)
@@ -121,16 +111,6 @@ std::string Button::getID() // return the button id
     return id;
 }
 
-void Button::setSound(std::string path)
-{
-    source->loadFromFile(path);
-    audio->setBuffer(*source);
-}
-
-void Button::Play()
-{
-    audio->play();
-}
 void Button::render()
 {
     component::render(); // calling the base class render function and then the button class functions are called..👍🏼

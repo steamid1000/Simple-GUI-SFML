@@ -31,7 +31,7 @@ MenuScene::MenuScene()
 
 MenuScene::~MenuScene()
 {
-    // delete internalwindow;
+   
 }
 
 void MenuScene::setup()
@@ -53,14 +53,14 @@ void MenuScene::setup()
 
 
 
-    play->SetInnerText("Play", 10);
-    // greet->SetInnerText("PONG - THE GAME");
+    play->SetInnerText("Play", 30);
+    //  greet->SetInnerText("PONG - THE GAME");
     quit->SetInnerText("Quit");
     settings->SetInnerText("Authors");
-    help->SetInnerText("game like why not now", 90); // The size 90 will not applied as the SetSize function is called on this object
+    help->SetInnerText("game like why not now", 50); // The size 90 will not applied as the SetSize function is called on this object
 
     // testing the function
-    test->SetInnerText("Working", 90); // This size will be set as the user havent provided any size for the button object
+    test->SetInnerText("Working", 70); // This size will be set as the user havent provided any size for the button object
 
     play->SetSize(sf::Vector2f(100, 30));
     quit->SetSize(sf::Vector2f(100, 30));

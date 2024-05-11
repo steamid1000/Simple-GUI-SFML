@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <GUI.hpp>
-#include "MenuScene.hpp"
-#include "TestingScene.hpp"
+#include <MenuScene.hpp>
+#include <TestingScene.hpp>
 
 // Should we make the window object universal so that we dont have to make copies of it every time we create a new object
 // Lets try this
@@ -16,7 +16,7 @@ int main()
 {
     srand(time(0)); //^ initializing for the random variables
     // I want this file to be as clean as possible maybe after a scene manager this will be accomplished
-    SetFont(font, "res/times.ttf"); //& this function should be called only once
+    GUI::SetFont(font, "res/times.ttf"); //& this function should be called only once
     window = new sf::RenderWindow(sf::VideoMode(width, height), "GUI Testing");
     window->setFramerateLimit(60);
 
@@ -34,6 +34,12 @@ int main()
         while (window->pollEvent(events))
         {
             if (events.type == sf::Event::Closed)
+            {
+                window->close();
+                return EXIT_SUCCESS;
+            }
+
+            if (sceneIndex == 0 and events.type == sf::Event::KeyPressed and sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 window->close();
                 return EXIT_SUCCESS;

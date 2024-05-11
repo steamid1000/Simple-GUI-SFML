@@ -107,14 +107,6 @@ namespace GUI
         }
     }
 
-    // Changes the button size according to the new entered text
-    void Button::ButtonSizeAccordingToText()
-    {
-
-        SetSize(sf::Vector2f(text->getGlobalBounds().width + 5, text->getGlobalBounds().height + 10));
-        // OnSizeChange();
-    }
-
     // Changes the inner text of the button
     void Button::SetInnerText(std::string innertext, short characterSize)
     {
@@ -163,7 +155,7 @@ namespace GUI
         body->setFillColor(sf::Color(rgb.a, rgb.b, rgb.c, rgb.d));
     }
 
-    void Button::OnSizeChange(bool calledFromTextSize=0) // this function when setsSize function is called
+    void Button::OnSizeChange(bool calledFromTextSize = 0) // this function when setsSize function is called
     {
         if (!calledFromTextSize)
         {
@@ -173,18 +165,26 @@ namespace GUI
         text->setPosition(GetPosition().x + (GetSize().x / 2 - text->getGlobalBounds().width / 2), GetPosition().y + text->getGlobalBounds().height / 2);
     }
 
+    // Changes the button size according to the new entered text
+    void Button::ButtonSizeAccordingToText()
+    {
+
+        SetSize(sf::Vector2f(text->getGlobalBounds().width + 5, text->getGlobalBounds().height + 10));
+        OnSizeChange();
+    }
     void Button::SetPosition(sf::Vector2f position)
     {
         body->setPosition(position);
-        OnSizeChange(1);
+        OnSizeChange();
     }
 
-    void Button::SetSize(sf::Vector2f size){
+    void Button::SetSize(sf::Vector2f size)
+    {
         body->setSize(size);
-        // SizeGiven = true;
     }
 
-    sf::FloatRect Button::getBounds(){
+    sf::FloatRect Button::getBounds()
+    {
         return body->getGlobalBounds();
     }
 

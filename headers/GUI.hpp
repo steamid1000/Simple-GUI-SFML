@@ -25,8 +25,8 @@ void setText(sf::Font &fontObject, sf::Text &textObject, std::string filepath, s
 }
 
 
-
-#ifndef SetFont // Why in the world are there two function to set font, got to remove it 
+namespace GUI{
+ 
 void SetFont(sf::Font &font,std::string path)
 {
     if (!font.loadFromFile(path))
@@ -36,7 +36,7 @@ void SetFont(sf::Font &font,std::string path)
     }
     
 }
-#endif
+}
 
 #ifndef assignFont
 void assignFont(sf::Text &text, sf::Font &font) // Just sets the font to the text object

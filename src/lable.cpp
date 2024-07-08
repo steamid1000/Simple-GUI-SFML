@@ -14,17 +14,18 @@ namespace GUI
         delete text;
     }
 
-    void Lable::SetInnerText(std::string innertext, short characterSize = 30)
+    void Lable::SetInnerText(std::string innertext)
     {
         // call the set font function before this
         text->setString(innertext);
 
-        text->setCharacterSize(characterSize);
+        text->setCharacterSize(30);
     }
 
     void Lable::SetSize(short charactersize)
     {
         text->setCharacterSize(charactersize);
+        
     }
 
     void Lable::SetColor(Vector4i rgb)
@@ -46,6 +47,9 @@ namespace GUI
          return sf::Vector3i(text->getFillColor().r, text->getFillColor().g, text->getFillColor().b);
     }
 
+    sf::Vector2f Lable::GetPosition(){
+        return text->getPosition();
+    }
     // render function
     void Lable::render()
     {

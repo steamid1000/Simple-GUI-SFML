@@ -5,14 +5,14 @@
 
 // Should we make the window object universal so that we dont have to make copies of it every time we create a new object
 // Lets try this
-sf::RenderWindow* window;
+sf::RenderWindow *window;
 
 /*// & I think the Onsize change and The auto size on text are fighting with each other as the characterSize is not changing */
-short width = 600, height = 400;
+short width = 1360, height = 760;
 sf::Font font;
 short sceneIndex = 0;
 
-int main() 
+int main()
 {
     srand(time(0)); //^ initializing for the random variables
     // I want this file to be as clean as possible maybe after a scene manager this will be accomplished
@@ -25,7 +25,7 @@ int main()
     TestScene test;
 
     Scene *Scenes[2];
-    Scenes[0] = &menu; 
+    Scenes[0] = &menu;
     Scenes[1] = &test;
 
     while (window->isOpen())
@@ -44,17 +44,9 @@ int main()
                 window->close();
                 return EXIT_SUCCESS;
             }
-            
-            //& Prevent resize code
-            if (events.type == sf::Event::Resized)
-            {                
-                window->setSize(sf::Vector2u(width,height));
-            }
-            
-            Scenes[sceneIndex]->render();           
-            // & Each Scene should have its own clear screen and display calls
         }
-
+        Scenes[sceneIndex]->render();
+        // & Each Scene should have its own clear screen and display calls
     }
 
     return EXIT_SUCCESS;

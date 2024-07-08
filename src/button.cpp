@@ -17,7 +17,8 @@ namespace GUI
         // text object settings
         text = new sf::Text;
         text->setFont(font);
-        text->setFillColor(sf::Color::White);
+        text->setFillColor(sf::Color::Black);
+        text->setString("NULL");
     }
 
     void Button::align(short side) // Align the button to the sides of the window or the center of the window
@@ -61,7 +62,7 @@ namespace GUI
 
     bool Button::cursorOverButton()
     {
-        sf::Vector2f mousePosition(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+        sf::Vector2f mousePosition(sf::Mouse::getPosition(*window));
         sf::FloatRect buttonArea = getBounds();
         if (buttonArea.contains(mousePosition))
         {
@@ -75,6 +76,12 @@ namespace GUI
     {
         try
         {
+            while (Clicked() and cursorOverButton()) // to avoid flicker across scenes
+            {
+                continue;
+            }
+            
+            printf("MOuse Position: %d , %d \n", sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
             if (action == nullptr)
             {
                 throw "Action Not Found";
@@ -108,21 +115,18 @@ namespace GUI
     }
 
     // Changes the inner text of the button
-    void Button::SetInnerText(std::string innertext, short characterSize)
+    void Button::SetInnerText(std::string innertext, int characterSize)
     {
         // call the set font function before this
         text->setString(innertext);
-        if (characterSize != 30)
-        {
-            text->setCharacterSize(characterSize);
-        }
 
+        text->setCharacterSize(characterSize);
         ButtonSizeAccordingToText();
     }
 
     bool Button::Clicked()
     {
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left) and cursorOverButton())
+        if (cursorOverButton() and sf::Mouse::isButtonPressed(sf::Mouse::Left))
         {
             return true;
         }
@@ -155,14 +159,12 @@ namespace GUI
         body->setFillColor(sf::Color(rgb.a, rgb.b, rgb.c, rgb.d));
     }
 
-    void Button::OnSizeChange(bool calledFromTextSize = 0) // this function when setsSize function is called
-    {
-        if (!calledFromTextSize)
-        {
-            text->setCharacterSize(GetSize().y / 2); // if this function is called by the accordingtotext function then we will not change the text size
-        }
+    void Button::OnSizeChange(){
+      
+        text->setCharacterSize((int)GetSize().y / 2); // if this function is called by the accordingtotext function then we will not change the text size
 
-        text->setPosition(GetPosition().x + (GetSize().x / 2 - text->getGlobalBounds().width / 2), GetPosition().y + text->getGlobalBounds().height / 2);
+        text->setPosition(int(GetPosition().x + (GetSize().x / 2 - text->getGlobalBounds().width / 2)), int(GetPosition().y + text->getGlobalBounds().height / 2));
+
     }
 
     // Changes the button size according to the new entered text
@@ -195,10 +197,9 @@ namespace GUI
 
     void Button::render()
     {
-        window->draw(*body);
+        // window->draw(*body);
         window->draw(*text);
         hover();
-
         if (Clicked())
         {
             onClick();

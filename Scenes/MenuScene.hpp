@@ -15,7 +15,7 @@ private:
     GUI::Lable *greet;
     GUI::Button *help;
     GUI::Button *test;
-
+    GUI::Panels backP;
 public:
     MenuScene();
 
@@ -51,6 +51,9 @@ void MenuScene::setup()
     help = new GUI::Button("help");
     test = new GUI::Button("test");
 
+
+    //setting the panel test here
+    backP.setPanelImage("/home/coder/Pictures/pillar.jpg");
 
 
     play->SetInnerText("Play", 30);
@@ -88,6 +91,7 @@ void MenuScene::setup()
 void MenuScene::render()
 {
     window->clear(sf::Color::White);
+    backP.render();
     greet->render();
     play->render();
     settings->render();

@@ -7,7 +7,9 @@ extern short sceneIndex;
 class TestScene : public Scene
 {
     GUI::Button *back;
-
+    GUI::Panels backImg;
+    GUI::Panels backImg2;
+    unsigned short index;
 public:
     TestScene();
     ~TestScene();
@@ -18,6 +20,7 @@ public:
 TestScene::TestScene()
 {
     back = new GUI::Button("backButton");
+    index = 0;
     setup();
 }
 
@@ -33,14 +36,19 @@ void TestScene::setup()
     auto backAction = [&]()
     { --sceneIndex; };
     back->setAction(backAction);
+
+    backImg.setPanelImage("/home/coder/Pictures/pillar.jpg");
+    backImg2.setPanelImage("/home/coder/Pictures/9.png");
 }
 
 void TestScene::render()
 {
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         --sceneIndex;
 
-    window->clear(sf::Color::Yellow);
+    window->clear();
+    backImg.render();
     back->render();
     window->display();
 }

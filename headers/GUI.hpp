@@ -1,5 +1,6 @@
 #include "Buttons.hpp"
 #include "Lables.hpp"
+#include "Panels.hpp"
 
 //^ Useful functions
 

@@ -81,7 +81,6 @@ namespace GUI
                 continue;
             }
             
-            printf("MOuse Position: %d , %d \n", sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
             if (action == nullptr)
             {
                 throw "Action Not Found";

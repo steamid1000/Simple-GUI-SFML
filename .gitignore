@@ -3,4 +3,4 @@
 .vscode
 *.json
 build/
-build/core
+build/core.exe

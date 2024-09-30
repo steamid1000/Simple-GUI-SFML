@@ -2,14 +2,13 @@
 #include "Scene.hpp"
 
 extern short sceneIndex;
-// extern sf::RenderWindow *window;
 
 class TestScene : public Scene
 {
     GUI::Button *back;
     GUI::Panels backImg;
-    GUI::Panels backImg2;
     unsigned short index;
+    short align = 0;
 public:
     TestScene();
     ~TestScene();
@@ -31,14 +30,15 @@ TestScene::~TestScene()
 
 void TestScene::setup()
 {
-    back->SetInnerText("Back To Main Menu");
-    back->align(0);
+    back->SetInnerText("Back To Main Menu",70);
+    back->ChangeTextColor(Vector4i(100,120,50,255));
+    back->align(1);
+    back->SetInnerText("Back",25);
     auto backAction = [&]()
     { --sceneIndex; };
     back->setAction(backAction);
 
-    backImg.setPanelImage("/home/coder/Pictures/pillar.jpg");
-    backImg2.setPanelImage("/home/coder/Pictures/9.png");
+    backImg.setPanelImage("res/Level2Panel.jpg");
 }
 
 void TestScene::render()
@@ -46,7 +46,10 @@ void TestScene::render()
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         --sceneIndex;
-
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        align = (align+1)%5;
+        back->align(align);
+    }
     window->clear();
     backImg.render();
     back->render();

@@ -19,6 +19,7 @@ namespace GUI
         text->setFont(font);
         text->setFillColor(sf::Color::Black);
         text->setString("NULL");
+        text->setPosition(GetPosition());
     }
 
     void Button::align(short side) // Align the button to the sides of the window or the center of the window
@@ -41,13 +42,13 @@ namespace GUI
             SetPosition(sf::Vector2f(width / 2 - GetSize().x / 2, height / 2 - GetSize().y / 2));
             break;
         case 1:
-            SetPosition(sf::Vector2f(GetSize().x, 10));
+            SetPosition(sf::Vector2f(20, 20));
             break;
         case 2:
             SetPosition(sf::Vector2f(width - GetSize().x - 10, 10));
             break;
         case 3:
-            SetPosition(sf::Vector2f(10, height - GetSize().y * 1.5f));
+            SetPosition(sf::Vector2f(30, height - GetSize().y * 1.5f));
             break;
         case 4:
             SetPosition(sf::Vector2f(width - GetSize().x - 10, height - GetSize().y - 10));
@@ -57,7 +58,7 @@ namespace GUI
             break;
         }
 
-        // OnSizeChange();
+        AdjustTextPosition();
     }
 
     bool Button::cursorOverButton()
@@ -80,7 +81,7 @@ namespace GUI
             {
                 continue;
             }
-            
+
             if (action == nullptr)
             {
                 throw "Action Not Found";
@@ -113,13 +114,18 @@ namespace GUI
         }
     }
 
+    void Button::toggleButtonBodyVisibility(){
+        buttonbodyvisible = !buttonbodyvisible;
+    }
+
+    
+
     // Changes the inner text of the button
     void Button::SetInnerText(std::string innertext, int characterSize)
     {
         // call the set font function before this
-        text->setString(innertext);
-
         text->setCharacterSize(characterSize);
+        text->setString(innertext);
         ButtonSizeAccordingToText();
     }
 
@@ -158,36 +164,52 @@ namespace GUI
         body->setFillColor(sf::Color(rgb.a, rgb.b, rgb.c, rgb.d));
     }
 
-    void Button::OnSizeChange(){
-      
+    void Button::OnSizeChange()
+    {
         text->setCharacterSize((int)GetSize().y / 2); // if this function is called by the accordingtotext function then we will not change the text size
-
-        text->setPosition(int(GetPosition().x + (GetSize().x / 2 - text->getGlobalBounds().width / 2)), int(GetPosition().y + text->getGlobalBounds().height / 2));
-
     }
 
     // Changes the button size according to the new entered text
     void Button::ButtonSizeAccordingToText()
     {
+        SetSize(sf::Vector2f(text->getLocalBounds().width + 10, (text->getLocalBounds().height + 10)));
+        AdjustTextPosition();
+    } 
+    void Button::AdjustTextPosition()
+    {
+        sf::FloatRect textBounds = text->getLocalBounds();
+        float textX = GetPosition().x + (GetSize().x - textBounds.width) / 2 - textBounds.left;
+        float textY = GetPosition().y + (GetSize().y - textBounds.height) / 2 - textBounds.top;
 
-        SetSize(sf::Vector2f(text->getGlobalBounds().width + 5, text->getGlobalBounds().height + 10));
-        OnSizeChange();
+        text->setPosition(int(textX), int(textY));
     }
+
+    void Button::containText(){
+        
+        if(text->getLocalBounds().height > GetSize().y or text->getLocalBounds().width > GetSize().x){
+            OnSizeChange();
+            return;
+        }
+    }
+
     void Button::SetPosition(sf::Vector2f position)
     {
         body->setPosition(position);
-        OnSizeChange();
+        AdjustTextPosition();
     }
 
     void Button::SetSize(sf::Vector2f size)
     {
         body->setSize(size);
+        containText();
+        AdjustTextPosition();
     }
 
     sf::FloatRect Button::getBounds()
     {
         return body->getGlobalBounds();
     }
+    
 
     std::string Button::getID() // return the button id
     {
@@ -196,8 +218,9 @@ namespace GUI
 
     void Button::render()
     {
-        // window->draw(*body);
+        if(buttonbodyvisible) window->draw(*body);
         window->draw(*text);
+
         hover();
         if (Clicked())
         {

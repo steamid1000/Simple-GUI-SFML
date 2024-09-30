@@ -2,7 +2,6 @@
 #include "Scene.hpp"
 
 
-extern short sceneIndex;
 extern sf::Font font;
 extern sf::RenderWindow *window;
 
@@ -38,7 +37,11 @@ void MenuScene::setup()
 {
     //Defining the actions for the buttons
     auto incre = [](){
-        ++sceneIndex;
+        SM.switchScene("LevelScene");
+    };
+
+    auto exception = [](){
+        SM.switchScene("NonExistant");
     };
 
     auto quitaction = [&]()
@@ -90,6 +93,7 @@ void MenuScene::setup()
     //Setting up the actions for the buttons
     quit->setAction(quitaction);
     play->setAction(incre);
+    help->setAction(exception);
     printf("The Scene has been setup\n");
 }
 

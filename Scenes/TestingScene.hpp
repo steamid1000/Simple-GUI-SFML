@@ -1,7 +1,6 @@
 #pragma once
 #include "Scene.hpp"
 
-extern short sceneIndex;
 
 class TestScene : public Scene
 {
@@ -35,7 +34,7 @@ void TestScene::setup()
     back->align(1);
     back->SetInnerText("Back",25);
     auto backAction = [&]()
-    { --sceneIndex; };
+    { SM.switchScene("MenuScene"); };
     back->setAction(backAction);
 
     backImg.setPanelImage("res/Level2Panel.jpg");
@@ -45,7 +44,7 @@ void TestScene::render()
 {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        --sceneIndex;
+        SM.switchScene("MenuScene");
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
         align = (align+1)%5;
         back->align(align);

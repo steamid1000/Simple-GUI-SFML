@@ -11,6 +11,10 @@ public:
 
     virtual void setup() = 0;
     virtual void render() = 0;
+    void handleScene();
 };
 Scene::Scene(){}
 Scene::~Scene() {}
+void Scene::handleScene(){
+ 
+}

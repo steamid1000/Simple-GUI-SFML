@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <GUI.hpp>
+#include <SceneManager.hpp>
 #include <MenuScene.hpp>
 #include <TestingScene.hpp>
 
 sf::RenderWindow *window;
 short width = 1300, height = 600;
 sf::Font font;
-short sceneIndex = 0;
 
 int main()
 {
@@ -16,14 +16,18 @@ int main()
     window = new sf::RenderWindow(sf::VideoMode(width, height), "Simple GUI");
     window->setFramerateLimit(60);
 
+
     // Creating an array of Scenes by refering them as their base class 'Scene'
-    MenuScene menu;
-    TestScene test;
+    MenuScene* menu = NULL;
+    TestScene* test = NULL;
 
-    Scene *Scenes[2];
-    Scenes[0] = &menu;
-    Scenes[1] = &test;
+    menu = new MenuScene();
+    test = new TestScene();
 
+    SM.addScene("MenuScene",menu);
+    SM.addScene("LevelScene",test);
+
+    SM.switchScene("MenuScene");
     while (window->isOpen())
     {
         sf::Event events;
@@ -34,14 +38,9 @@ int main()
                 window->close();
                 return EXIT_SUCCESS;
             }
-
-            if (sceneIndex == 0 and events.type == sf::Event::KeyPressed and sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                window->close();
-                return EXIT_SUCCESS;
-            }
         }
-        Scenes[sceneIndex]->render();
+        
+        SM.update();
         // & Each Scene should have its own clear screen and display calls
     }
 
